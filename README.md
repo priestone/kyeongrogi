@@ -3,8 +3,9 @@
 - [x] npm i node-fetch
 - [x] npm i react-hook-form
 - [x] npm i react-router-dom
-- [] npm i styled-components
-- [] npm i styled-reset
+- [x] npm i styled-components
+- [x] npm i styled-reset
+- [x] npm install @mui/material @emotion/react @emotion/styled
 - [] npm i react-spinners
 - [] npm i swiper
 - [] font-awesome
