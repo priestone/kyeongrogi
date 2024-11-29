@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.header`
   width: 100%;
+  height: 100px;
   padding: 10px 5%;
   font-family: "RiaSans-ExtraBold";
   display: flex;
@@ -10,6 +11,7 @@ const Container = styled.header`
 
   h1 {
     font-size: 30px;
+    line-height: 60px;
   }
 
   h2 {
@@ -19,7 +21,7 @@ const Container = styled.header`
 
 const MenuWrap = styled.div`
   display: flex;
-  align-items: end;
+  align-items: center;
   a {
     margin-left: 150px;
   }
@@ -36,7 +38,7 @@ const Header = () => {
           <h2>단어장</h2>
         </Link>
         <Link to={"/list"}>
-          <h2>내 목록</h2>
+          <h2>내 경록</h2>
         </Link>
       </MenuWrap>
     </Container>

@@ -1,10 +1,9 @@
+import { useEffect, useState } from "react";
+import { KeywordArticles, SamsungArticles } from "../../api";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-
 import styled from "styled-components";
 import { designFont } from "../../GlobalStyled";
-import { useEffect, useState } from "react";
-import { DefaultArticles, KoreaArticles } from "../../api";
 import Loading from "../../components/Loading";
 
 const Container = styled.div`
@@ -80,19 +79,21 @@ const Theme = styled.div`
   margin-right: 10px;
 `;
 
-const Home = () => {
-  // const [koreaData, setKoreaData] = useState();
-  const [defaultData, setDefaultData] = useState();
+const Samsung = () => {
+  const [samsungData, setSamsungData] = useState();
+  const [keywordData, setKeywordData] = useState();
 
   useEffect(() => {
     (async () => {
       try {
-        // const KRdata = await KoreaArticles();
-        const DFdata = await DefaultArticles();
-        // setKoreaData(KRdata);
-        setDefaultData(DFdata);
+        const SSdata = await SamsungArticles();
+        const KWdData = await KeywordArticles("SK하이닉스");
+
+        setSamsungData(SSdata);
+        setKeywordData(KWdData);
+
         // console.log(KRdata.data[0].summary);
-        // console.log(koreaData);
+        // console.log(KWdData);
         // console.log(KRdata.data);
       } catch (error) {
         console.log(error);
@@ -100,15 +101,19 @@ const Home = () => {
     })();
   }, []);
 
+  const clickHandler = (title) => {
+    const updateKeyword = KeywordArticles(title);
+    console.log(updateKeyword);
+    return updateKeyword;
+  };
+
   return (
     <div>
-      {defaultData ? (
+      {keywordData ? (
         <>
           <ThemeWrap>
-            <Link to={"/samsung"}>
-              <Theme>삼성전자</Theme>
-            </Link>
-            <Theme>구글</Theme>
+            <Theme onClick={() => clickHandler("삼성전자")}>삼성전자</Theme>
+            <Theme>SK 하이닉스</Theme>
             <Theme>애플</Theme>
           </ThemeWrap>
           <Container>
@@ -119,7 +124,7 @@ const Home = () => {
               </span>
               <h3>사용 설명서</h3>
             </NoticeWrap>
-            {defaultData.data.map((news) => (
+            {keywordData.data.map((news) => (
               <Box key={news.id}>
                 <Card
                   variant="soft"
@@ -164,4 +169,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Samsung;

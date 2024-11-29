@@ -13,12 +13,30 @@ const options = {
   },
 };
 
-export const KoreaArticles = () =>
+export const SamsungArticles = () =>
   fetch(
     url(
-      `articles?company_name=삼성전자&date_from=2024-04-25&date_to=2024-04-25&`
+      `articles?company_name=삼성전자&page_size=99&date_from=2024-04-25&date_to=2024-04-25&`
     ),
     options
   ).then((res) => res.json());
 
+export const KeywordArticles = (keyword) =>
+  fetch(
+    url(
+      `articles?company_name=${keyword}&page_size=99&date_from=2024-04-25&date_to=2024-04-25&`
+    ),
+    options
+  ).then((res) => res.json());
+
+export const DefaultArticles = () =>
+  fetch(
+    url(`articles?keyword=title:(삼성전자 AND 구글)&page_size=99&`),
+    options
+  ).then((res) => res.json());
+
 // global-articles/topics/trending?company_name=Apple&order=published_at&
+
+// keyword=title:(삼성전자 AND 구글)
+
+// company_name = 삼성전자;

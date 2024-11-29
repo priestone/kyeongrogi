@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
+export const designFont = {
+  styleFont: "RiaSans-ExtraBold",
+};
+
 export const GlobalStyled = createGlobalStyle`
 ${reset}
 

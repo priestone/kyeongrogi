@@ -3,6 +3,7 @@ import Home from "./pages/home/Home";
 import Header from "./components/Header";
 import Words from "./pages/words/Words";
 import List from "./pages/list/List";
+import Samsung from "./pages/detail/Samsung";
 
 const Router = () => {
   return (
@@ -10,6 +11,7 @@ const Router = () => {
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/samsung" element={<Samsung />}></Route>
         <Route path="/words" element={<Words />}></Route>
         <Route path="/list" element={<List />}></Route>
       </Routes>
