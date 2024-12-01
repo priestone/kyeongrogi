@@ -43,11 +43,11 @@ export const GlobalArticles = (keyword) =>
     options
   ).then((res) => res.json());
 
-export const TrendArticles = () =>
-  fetch(
-    url(`articles/topics/trending?date_from=2024-04-25&date_to=2024-04-28&`),
-    options
-  ).then((res) => res.json());
+// export const TrendArticles = () =>
+//   fetch(
+//     url(`articles/topics/trending?date_from=2024-04-25&date_to=2024-04-28&`),
+//     options
+//   ).then((res) => res.json());
 
 // global-articles/topics/trending?company_name=Apple&order=published_at&
 

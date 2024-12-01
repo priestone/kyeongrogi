@@ -100,6 +100,7 @@ const Home = () => {
     })();
   }, []);
 
+  // console.log(defaultData);
   return (
     <div>
       {defaultData ? (
@@ -121,16 +122,17 @@ const Home = () => {
             </NoticeWrap>
             {defaultData.data.map((news) => (
               <Box key={news.id}>
-                <Card
-                  variant="soft"
-                  sx={{
-                    bgcolor: "#f0f0f0",
-                    maxHeight: 260,
-                    width: 300,
-                    borderRadius: 4,
-                  }}
-                >
-                  <Link to={"/detail"}>
+                <Link to={{ pathname: "/detail", state: { news } }}>
+                  <Card
+                    variant="soft"
+                    sx={{
+                      bgcolor: "#f0f0f0",
+                      maxHeight: 260,
+                      width: 300,
+                      borderRadius: 4,
+                    }}
+                  >
+                    {console.log(news)}
                     <CardMedia
                       sx={{ height: 140 }}
                       image={
@@ -151,8 +153,8 @@ const Home = () => {
                         {news.summary.slice(0, 46)}...
                       </Typography>
                     </CardContent>
-                  </Link>
-                </Card>
+                  </Card>
+                </Link>
               </Box>
             ))}
           </Container>

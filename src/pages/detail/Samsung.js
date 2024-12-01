@@ -95,13 +95,13 @@ const Samsung = () => {
       try {
         const SSdata = await SamsungArticles();
         const KWdData = await KeywordArticles("SK하이닉스");
-        const TRData = await TrendArticles();
+        // const TRData = await TrendArticles();
 
         setSamsungData(SSdata);
         setKeywordData(KWdData);
-        setTrendData(TRData);
+        // setTrendData(TRData);
 
-        console.log(trendData);
+        // console.log(trendData);
         // console.log(KRdata.data[0].summary);
         // console.log(KWdData);
         // console.log(KRdata.data);
