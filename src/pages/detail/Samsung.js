@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { KeywordArticles, SamsungArticles } from "../../api";
+import {
+  GlobalArticles,
+  KeywordArticles,
+  SamsungArticles,
+  TrendArticles,
+} from "../../api";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -77,21 +82,26 @@ const Theme = styled.div`
   font-size: 20px;
   font-weight: 700;
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const Samsung = () => {
   const [samsungData, setSamsungData] = useState();
   const [keywordData, setKeywordData] = useState();
+  const [trendData, setTrendData] = useState();
 
   useEffect(() => {
     (async () => {
       try {
         const SSdata = await SamsungArticles();
         const KWdData = await KeywordArticles("SK하이닉스");
+        const TRData = await TrendArticles();
 
         setSamsungData(SSdata);
         setKeywordData(KWdData);
+        setTrendData(TRData);
 
+        console.log(trendData);
         // console.log(KRdata.data[0].summary);
         // console.log(KWdData);
         // console.log(KRdata.data);
@@ -101,20 +111,26 @@ const Samsung = () => {
     })();
   }, []);
 
-  const clickHandler = (title) => {
-    const updateKeyword = KeywordArticles(title);
-    console.log(updateKeyword);
-    return updateKeyword;
+  const clickHandler = async (title) => {
+    try {
+      const updateKeyword = await KeywordArticles(title);
+      setKeywordData(updateKeyword);
+      console.log(updateKeyword); // 최신 데이터 출력
+    } catch (error) {
+      console.error("Error fetching keyword data:", error);
+    }
   };
 
   return (
     <div>
-      {keywordData ? (
+      {keywordData && keywordData.data ? (
         <>
           <ThemeWrap>
             <Theme onClick={() => clickHandler("삼성전자")}>삼성전자</Theme>
-            <Theme>SK 하이닉스</Theme>
-            <Theme>애플</Theme>
+            <Theme onClick={() => clickHandler("SK하이닉스")}>
+              SK 하이닉스
+            </Theme>
+            <Theme onClick={() => clickHandler("오리온")}>애플</Theme>
           </ThemeWrap>
           <Container>
             <NoticeWrap>
