@@ -29,9 +29,11 @@ export const KeywordArticles = (keyword) =>
     options
   ).then((res) => res.json());
 
-export const DefaultArticles = () =>
+export const DefaultArticles = (pageid) =>
   fetch(
-    url(`articles?keyword=title:(삼성전자 AND 구글)&page_size=99&`),
+    url(
+      `articles?keyword=title:(삼성전자 AND 구글)&page=${pageid}&page_size=10&`
+    ),
     options
   ).then((res) => res.json());
 

@@ -6,7 +6,6 @@
 - [x] npm i styled-components
 - [x] npm i styled-reset
 - [x] npm install @mui/material @emotion/react @emotion/styled
-- [] npm i react-spinners
-- [] npm i swiper
+- [x] npm i react-infinite-scroll-component
 - [] font-awesome
 - [] helmet-async

@@ -63,6 +63,7 @@ const MemoWrap = styled.input`
   height: 200px;
   border-radius: 10px;
   background-color: #dbdbdb;
+  padding: 10px;
 `;
 
 const MemoWrap2 = styled.input`
@@ -71,6 +72,7 @@ const MemoWrap2 = styled.input`
   height: 100px;
   border-radius: 10px;
   background-color: #dbdbdb;
+  padding: 10px;
   margin-bottom: 50px;
 `;
 

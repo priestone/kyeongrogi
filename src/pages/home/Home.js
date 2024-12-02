@@ -6,6 +6,7 @@ import { designFont } from "../../GlobalStyled";
 import { useEffect, useState } from "react";
 import { DefaultArticles, KeywordArticles, KoreaArticles } from "../../api";
 import Loading from "../../components/Loading";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Container = styled.div`
   padding: 0 5%;
@@ -62,7 +63,7 @@ const ThemeWrap = styled.div`
   width: 90%;
   height: 50px;
   /* background-color: yellow; */
-  margin: 0 auto 10px auto;
+  margin: 10px auto 10px auto;
   padding: 0 5%;
   display: flex;
 `;
@@ -86,16 +87,19 @@ const Home = () => {
   const [defaultData, setDefaultData] = useState();
   const [keywordData, setKeywordData] = useState();
   const [selectedTheme, setSelectedTheme] = useState("default");
+  const [resultData, setResultData] = useState();
 
   useEffect(() => {
     (async () => {
       try {
         // const KRdata = await KoreaArticles();
-        const DFdata = await DefaultArticles();
+        const DFdata = await DefaultArticles(1);
         const KWdData = await KeywordArticles("SK하이닉스");
         // setKoreaData(KRdata);
         setDefaultData(DFdata);
         setKeywordData(KWdData);
+        setResultData(DFdata);
+        console.log(DFdata);
 
         // console.log(KRdata.data[0].summary);
         // console.log(koreaData);
@@ -105,6 +109,19 @@ const Home = () => {
       }
     })();
   }, []);
+
+  // const fetchData = async () => {
+  //   try {
+  //     let page = (resultData.page += 1);
+  //     if (resultData.page <= resultData.total_pages) {
+  //       const { results } = await DefaultArticles(page);
+  //       setDefaultData(defaultData.concat(results));
+  //     }
+  //     console.log(page);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const clickHandler = async (title) => {
     try {
@@ -142,8 +159,15 @@ const Home = () => {
               title="news"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {news.title.slice(0, 13)}..
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                fontFamily={"Noto Sans KR"}
+                fontSize={"1.3rem"}
+                fontWeight={700}
+              >
+                {news.title.slice(0, 14)}..
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {news.summary.slice(0, 46)}...
@@ -177,6 +201,7 @@ const Home = () => {
               </span>
               <h3>사용 설명서</h3>
             </NoticeWrap>
+            {/* <InfiniteScroll></InfiniteScroll> */}
             {renderArticles()}
           </Container>
         </>

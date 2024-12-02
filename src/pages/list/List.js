@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 0 5%;
+  padding: 10px 5%;
 
   width: 90%;
   height: 100vh;
@@ -55,8 +55,15 @@ const List = () => {
                   title="news"
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {news.title.slice(0, 13)}...
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    fontFamily={"Noto Sans KR"}
+                    fontWeight={700}
+                    fontSize={"1.3rem"}
+                  >
+                    {news.title.slice(0, 14)}...
                   </Typography>
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {news.summary.slice(0, 46)}...

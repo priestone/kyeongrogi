@@ -8,6 +8,7 @@ const Container = styled.header`
   font-family: "RiaSans-ExtraBold";
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #dbdbdb;
 
   h1 {
     font-size: 30px;
