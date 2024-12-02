@@ -5,6 +5,7 @@ import Words from "./pages/words/Words";
 import List from "./pages/list/List";
 import Samsung from "./pages/detail/Samsung";
 import Detail from "./pages/detail/Detail";
+import ListDetail from "./pages/list/ListDetail";
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
         <Route path="/detail" element={<Detail />}></Route>
         <Route path="/words" element={<Words />}></Route>
         <Route path="/list" element={<List />}></Route>
+        <Route path="/listDetail" element={<ListDetail />}></Route>
       </Routes>
     </HashRouter>
   );

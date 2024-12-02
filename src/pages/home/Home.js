@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { designFont } from "../../GlobalStyled";
 import { useEffect, useState } from "react";
-import { DefaultArticles, KoreaArticles } from "../../api";
+import { DefaultArticles, KeywordArticles, KoreaArticles } from "../../api";
 import Loading from "../../components/Loading";
 
 const Container = styled.div`
@@ -77,20 +77,26 @@ const Theme = styled.div`
   line-height: 50px;
   font-size: 20px;
   font-weight: 700;
-  margin-right: 10px;
+  margin-right: 30px;
+  cursor: pointer;
 `;
 
 const Home = () => {
   // const [koreaData, setKoreaData] = useState();
   const [defaultData, setDefaultData] = useState();
+  const [keywordData, setKeywordData] = useState();
+  const [selectedTheme, setSelectedTheme] = useState("default");
 
   useEffect(() => {
     (async () => {
       try {
         // const KRdata = await KoreaArticles();
         const DFdata = await DefaultArticles();
+        const KWdData = await KeywordArticles("SK하이닉스");
         // setKoreaData(KRdata);
         setDefaultData(DFdata);
+        setKeywordData(KWdData);
+
         // console.log(KRdata.data[0].summary);
         // console.log(koreaData);
         // console.log(KRdata.data);
@@ -100,17 +106,68 @@ const Home = () => {
     })();
   }, []);
 
+  const clickHandler = async (title) => {
+    try {
+      const updateKeyword = await KeywordArticles(title);
+      setKeywordData(updateKeyword);
+      setSelectedTheme(title);
+    } catch (error) {
+      console.error("Error fetching keyword data:", error);
+    }
+  };
+
+  const renderArticles = () => {
+    const articles =
+      selectedTheme === "default" ? defaultData?.data : keywordData?.data || [];
+
+    return articles.map((news) => (
+      <Box key={news.id}>
+        <Link to={`/detail`} state={{ news }}>
+          <Card
+            variant="soft"
+            sx={{
+              bgcolor: "#f0f0f0",
+              maxHeight: 260,
+              width: 300,
+              borderRadius: 4,
+            }}
+          >
+            <CardMedia
+              sx={{ height: 140 }}
+              image={
+                news.image_url
+                  ? news.image_url
+                  : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
+              }
+              title="news"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {news.title.slice(0, 13)}..
+              </Typography>
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                {news.summary.slice(0, 46)}...
+              </Typography>
+            </CardContent>
+          </Card>
+        </Link>
+      </Box>
+    ));
+  };
+
   // console.log(defaultData);
   return (
     <div>
       {defaultData ? (
         <>
           <ThemeWrap>
-            <Link to={"/samsung"}>
-              <Theme>삼성전자</Theme>
-            </Link>
-            <Theme>구글</Theme>
-            <Theme>애플</Theme>
+            <Theme onClick={() => clickHandler("삼성전자")}>삼성전자</Theme>
+            <Theme onClick={() => clickHandler("SK하이닉스")}>SK하이닉스</Theme>
+            <Theme onClick={() => clickHandler("카카오")}>카카오</Theme>
+            <Theme onClick={() => clickHandler("한화")}>한화</Theme>
+            <Theme onClick={() => clickHandler("GS")}>GS</Theme>
+            <Theme onClick={() => clickHandler("KT")}>KT</Theme>
+            <Theme onClick={() => clickHandler("오리온")}>오리온</Theme>
           </ThemeWrap>
           <Container>
             <NoticeWrap>
@@ -120,43 +177,7 @@ const Home = () => {
               </span>
               <h3>사용 설명서</h3>
             </NoticeWrap>
-            {defaultData.data.map((news) => (
-              <Box key={news.id}>
-                <Link to={{ pathname: "/detail", state: { news } }}>
-                  <Card
-                    variant="soft"
-                    sx={{
-                      bgcolor: "#f0f0f0",
-                      maxHeight: 260,
-                      width: 300,
-                      borderRadius: 4,
-                    }}
-                  >
-                    {console.log(news)}
-                    <CardMedia
-                      sx={{ height: 140 }}
-                      image={
-                        news.image_url
-                          ? news.image_url
-                          : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
-                      }
-                      title="news"
-                    />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {news.title.slice(0, 13)}..
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary" }}
-                      >
-                        {news.summary.slice(0, 46)}...
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </Box>
-            ))}
+            {renderArticles()}
           </Container>
         </>
       ) : (
@@ -167,3 +188,41 @@ const Home = () => {
 };
 
 export default Home;
+
+// {defaultData.data.map((news) => (
+//   <Box key={news.id}>
+//     <Link to={`/detail`} state={{ news }}>
+//       <Card
+//         variant="soft"
+//         sx={{
+//           bgcolor: "#f0f0f0",
+//           maxHeight: 260,
+//           width: 300,
+//           borderRadius: 4,
+//         }}
+//       >
+//         {/* {console.log(news)} */}
+//         <CardMedia
+//           sx={{ height: 140 }}
+//           image={
+//             news.image_url
+//               ? news.image_url
+//               : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
+//           }
+//           title="news"
+//         />
+//         <CardContent>
+//           <Typography gutterBottom variant="h5" component="div">
+//             {news.title.slice(0, 13)}..
+//           </Typography>
+//           <Typography
+//             variant="body2"
+//             sx={{ color: "text.secondary" }}
+//           >
+//             {news.summary.slice(0, 46)}...
+//           </Typography>
+//         </CardContent>
+//       </Card>
+//     </Link>
+//   </Box>
+// ))}
