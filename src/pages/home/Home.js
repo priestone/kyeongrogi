@@ -71,7 +71,6 @@ const ThemeWrap = styled.div`
 const Theme = styled.div`
   width: 150px;
   height: 50px;
-  /* background-color: cornflowerblue; */
   border-radius: 50px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -80,6 +79,13 @@ const Theme = styled.div`
   font-weight: 700;
   margin-right: 30px;
   cursor: pointer;
+  background-color: ${(props) =>
+    props.isActive
+      ? "cornflowerblue"
+      : "transparent"}; /* 클릭된 버튼의 배경색 */
+  color: ${(props) =>
+    props.isActive ? "white" : "black"}; /* 클릭된 버튼의 글자색 */
+  transition: background-color 0.3s, color 0.3s;
 `;
 
 const Home = () => {
@@ -88,6 +94,16 @@ const Home = () => {
   const [keywordData, setKeywordData] = useState();
   const [selectedTheme, setSelectedTheme] = useState("default");
   const [resultData, setResultData] = useState();
+
+  const themes = [
+    "삼성전자",
+    "SK하이닉스",
+    "카카오",
+    "한화",
+    "GS",
+    "KT",
+    "오리온",
+  ];
 
   useEffect(() => {
     (async () => {
@@ -185,13 +201,22 @@ const Home = () => {
       {defaultData ? (
         <>
           <ThemeWrap>
-            <Theme onClick={() => clickHandler("삼성전자")}>삼성전자</Theme>
+            {themes.map((theme) => (
+              <Theme
+                key={theme}
+                isActive={selectedTheme === theme}
+                onClick={() => clickHandler(theme)}
+              >
+                {theme}
+              </Theme>
+            ))}
+            {/* <Theme onClick={() => clickHandler("삼성전자")}>삼성전자</Theme>
             <Theme onClick={() => clickHandler("SK하이닉스")}>SK하이닉스</Theme>
             <Theme onClick={() => clickHandler("카카오")}>카카오</Theme>
             <Theme onClick={() => clickHandler("한화")}>한화</Theme>
             <Theme onClick={() => clickHandler("GS")}>GS</Theme>
             <Theme onClick={() => clickHandler("KT")}>KT</Theme>
-            <Theme onClick={() => clickHandler("오리온")}>오리온</Theme>
+            <Theme onClick={() => clickHandler("오리온")}>오리온</Theme> */}
           </ThemeWrap>
           <Container>
             <NoticeWrap>
