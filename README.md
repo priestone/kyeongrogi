@@ -7,5 +7,5 @@
 - [x] npm i styled-reset
 - [x] npm install @mui/material @emotion/react @emotion/styled
 - [x] npm i react-infinite-scroll-component
-- [] font-awesome
+- [x] font-awesome
 - [] helmet-async

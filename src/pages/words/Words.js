@@ -1,5 +1,17 @@
 import styled from "styled-components";
 import { designFont } from "../../GlobalStyled";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
+import React, { useState } from "react";
 
 const Container = styled.div`
   padding: 0 5%;
@@ -37,15 +49,84 @@ const PlusBox = styled.div`
   height: 150px;
   border-radius: 10px;
   background-color: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    font-size: 40px;
+  }
 `;
 
 const Words = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Container>
       <h1>단어장</h1>
       <BoxWrap>
         <Box></Box>
-        <PlusBox>플러스</PlusBox>
+        <PlusBox>
+          <FontAwesomeIcon icon={faPlus} />
+        </PlusBox>
+        <Button variant="outlined" onClick={handleClickOpen}>
+          새 단어 추가
+        </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            component: "form",
+            onSubmit: (event) => {
+              event.preventDefault();
+              const formData = new FormData(event.currentTarget);
+              const formJson = Object.fromEntries(formData.entries());
+              const email = formJson.email;
+              console.log(email);
+              handleClose();
+            },
+          }}
+        >
+          <DialogTitle>새 단어 입력</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              새로운 단어를 입력하고 뜻을 적어 기록해보세요.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="name"
+              name="word"
+              label="단어명"
+              type="text"
+              fullWidth
+              variant="standard"
+            />
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              id="name"
+              name="value"
+              label="단어 뜻"
+              type="email"
+              fullWidth
+              variant="standard"
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>취소</Button>
+            <Button type="submit">작성 완료</Button>
+          </DialogActions>
+        </Dialog>
       </BoxWrap>
     </Container>
   );

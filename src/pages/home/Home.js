@@ -112,7 +112,7 @@ const Home = () => {
         const DFdata = await DefaultArticles(1);
         const KWdData = await KeywordArticles("SK하이닉스");
         // setKoreaData(KRdata);
-        setDefaultData(DFdata);
+        setDefaultData(DFdata.data);
         setKeywordData(KWdData);
         setResultData(DFdata);
         console.log(DFdata);
@@ -126,18 +126,18 @@ const Home = () => {
     })();
   }, []);
 
-  // const fetchData = async () => {
-  //   try {
-  //     let page = (resultData.page += 1);
-  //     if (resultData.page <= resultData.total_pages) {
-  //       const { results } = await DefaultArticles(page);
-  //       setDefaultData(defaultData.concat(results));
-  //     }
-  //     console.log(page);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const fetchData = async () => {
+    try {
+      let page = (resultData.page += 1);
+      if (resultData.page <= resultData.total_pages) {
+        const { results } = await DefaultArticles(page);
+        setDefaultData(defaultData.concat(results));
+      }
+      console.log(page);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const clickHandler = async (title) => {
     try {
@@ -227,7 +227,52 @@ const Home = () => {
               <h3>사용 설명서</h3>
             </NoticeWrap>
             {/* <InfiniteScroll></InfiniteScroll> */}
-            {renderArticles()}
+            {/* {renderArticles()} */}
+            <InfiniteScroll
+              dataLength={defaultData.length}
+              next={fetchData}
+              hasMore={true}
+            >
+              <>
+                {defaultData.map((news) => (
+                  <Box key={news.id}>
+                    <Link to={`/detail`} state={{ news }}>
+                      <Card
+                        variant="soft"
+                        sx={{
+                          bgcolor: "#f0f0f0",
+                          maxHeight: 260,
+                          width: 300,
+                          borderRadius: 4,
+                        }}
+                      >
+                        {console.log(news)}
+                        <CardMedia
+                          sx={{ height: 140 }}
+                          image={
+                            news.image_url
+                              ? news.image_url
+                              : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
+                          }
+                          title="news"
+                        />
+                        <CardContent>
+                          <Typography gutterBottom variant="h5" component="div">
+                            {news.title.slice(0, 13)}..
+                          </Typography>
+                          <Typography
+                            variant="body2"
+                            sx={{ color: "text.secondary" }}
+                          >
+                            {news.summary.slice(0, 46)}...
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </Box>
+                ))}
+              </>
+            </InfiniteScroll>
           </Container>
         </>
       ) : (
