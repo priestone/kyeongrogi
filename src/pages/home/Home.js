@@ -11,8 +11,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const Container = styled.div`
   padding: 0 5%;
 
-  width: 90%;
-  height: 100vh;
+  /* width: 90%;
+  height: 100vh; */
 
   display: grid;
   grid-template-columns: 300px 300px 300px 300px 300px;
@@ -64,7 +64,7 @@ const ThemeWrap = styled.div`
   height: 50px;
   /* background-color: yellow; */
   margin: 10px auto 10px auto;
-  padding: 0 5%;
+  /* padding: 0 5%; */
   display: flex;
 `;
 
@@ -80,11 +80,8 @@ const Theme = styled.div`
   margin-right: 30px;
   cursor: pointer;
   background-color: ${(props) =>
-    props.isActive
-      ? "cornflowerblue"
-      : "transparent"}; /* 클릭된 버튼의 배경색 */
-  color: ${(props) =>
-    props.isActive ? "white" : "black"}; /* 클릭된 버튼의 글자색 */
+    props.isActive ? "cornflowerblue" : "transparent"};
+  color: ${(props) => (props.isActive ? "white" : "black")};
   transition: background-color 0.3s, color 0.3s;
 `;
 
@@ -115,7 +112,7 @@ const Home = () => {
         setDefaultData(DFdata.data);
         setKeywordData(KWdData);
         setResultData(DFdata);
-        console.log(DFdata);
+        // console.log(DFdata);
 
         // console.log(KRdata.data[0].summary);
         // console.log(koreaData);
@@ -130,9 +127,13 @@ const Home = () => {
     try {
       let page = (resultData.page += 1);
       if (resultData.page <= resultData.total_pages) {
-        const { results } = await DefaultArticles(page);
-        setDefaultData(defaultData.concat(results));
+        const { data } = await DefaultArticles(page);
+        // if(results && results)
+        setDefaultData(defaultData.concat(data));
+
+        console.log(data);
       }
+
       console.log(page);
     } catch (error) {
       console.log(error);
@@ -152,6 +153,8 @@ const Home = () => {
   const renderArticles = () => {
     const articles =
       selectedTheme === "default" ? defaultData?.data : keywordData?.data || [];
+
+    // console.log(articles);
 
     return articles.map((news) => (
       <Box key={news.id}>
@@ -195,7 +198,7 @@ const Home = () => {
     ));
   };
 
-  // console.log(defaultData);
+  console.log(defaultData);
   return (
     <div>
       {defaultData ? (
@@ -218,22 +221,68 @@ const Home = () => {
             <Theme onClick={() => clickHandler("KT")}>KT</Theme>
             <Theme onClick={() => clickHandler("오리온")}>오리온</Theme> */}
           </ThemeWrap>
-          <Container>
-            <NoticeWrap>
+          {/* <InfiniteScroll></InfiniteScroll> */}
+          {/* {renderArticles()} */}
+
+          {/* {console.log(defaultData)} */}
+          {/* <Container> */}
+          {/* <NoticeWrap>
               <span>
                 <h1>경</h1>
                 <h2>록이</h2>
               </span>
               <h3>사용 설명서</h3>
-            </NoticeWrap>
-            {/* <InfiniteScroll></InfiniteScroll> */}
-            {/* {renderArticles()} */}
+            </NoticeWrap> */}
+          {/* {defaultData.map((news) => (
+              <Box key={news.id}>
+                <Link to={`/detail`} state={{ news }}>
+                  <Card
+                    variant="soft"
+                    sx={{
+                      bgcolor: "#f0f0f0",
+                      maxHeight: 260,
+                      width: 300,
+                      borderRadius: 4,
+                    }}
+                  >
+                    <CardMedia
+                      sx={{ height: 140 }}
+                      image={
+                        news.image_url
+                          ? news.image_url
+                          : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
+                      }
+                      title="news"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {news.title.slice(0, 13)}..
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary" }}
+                      >
+                        {news.summary.slice(0, 46)}...
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Box>
+            ))} */}
+          {
             <InfiniteScroll
               dataLength={defaultData.length}
               next={fetchData}
               hasMore={true}
             >
-              <>
+              <Container>
+                <NoticeWrap>
+                  <span>
+                    <h1>경</h1>
+                    <h2>록이</h2>
+                  </span>
+                  <h3>사용 설명서</h3>
+                </NoticeWrap>
                 {defaultData.map((news) => (
                   <Box key={news.id}>
                     <Link to={`/detail`} state={{ news }}>
@@ -246,7 +295,6 @@ const Home = () => {
                           borderRadius: 4,
                         }}
                       >
-                        {console.log(news)}
                         <CardMedia
                           sx={{ height: 140 }}
                           image={
@@ -271,9 +319,10 @@ const Home = () => {
                     </Link>
                   </Box>
                 ))}
-              </>
+              </Container>
             </InfiniteScroll>
-          </Container>
+          }
+          {/* </Container> */}
         </>
       ) : (
         <Loading></Loading>
@@ -321,3 +370,57 @@ export default Home;
 //     </Link>
 //   </Box>
 // ))}
+
+{
+  /* <InfiniteScroll
+dataLength={defaultData.length}
+next={fetchData}
+hasMore={true}
+>
+<Container>
+  <NoticeWrap>
+    <span>
+      <h1>경</h1>
+      <h2>록이</h2>
+    </span>
+    <h3>사용 설명서</h3>
+  </NoticeWrap>
+  {defaultData.map((news) => (
+    <Box key={news.id}>
+      <Link to={`/detail`} state={{ news }}>
+        <Card
+          variant="soft"
+          sx={{
+            bgcolor: "#f0f0f0",
+            maxHeight: 260,
+            width: 300,
+            borderRadius: 4,
+          }}
+        >
+          <CardMedia
+            sx={{ height: 140 }}
+            image={
+              news.image_url
+                ? news.image_url
+                : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
+            }
+            title="news"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {news.title.slice(0, 13)}..
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{ color: "text.secondary" }}
+            >
+              {news.summary.slice(0, 46)}...
+            </Typography>
+          </CardContent>
+        </Card>
+      </Link>
+    </Box>
+  ))}
+</Container>
+</InfiniteScroll> */
+}

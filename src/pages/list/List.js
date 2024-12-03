@@ -44,7 +44,7 @@ const List = () => {
                   borderRadius: 4,
                 }}
               >
-                {console.log(news)}
+                {/* {console.log(news)} */}
                 <CardMedia
                   sx={{ height: 140 }}
                   image={

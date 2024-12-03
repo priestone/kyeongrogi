@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  DefaultArticles,
   GlobalArticles,
   KeywordArticles,
   SamsungArticles,
@@ -10,6 +11,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { designFont } from "../../GlobalStyled";
 import Loading from "../../components/Loading";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Container = styled.div`
   padding: 0 5%;
@@ -89,13 +91,19 @@ const Samsung = () => {
   const [samsungData, setSamsungData] = useState();
   const [keywordData, setKeywordData] = useState();
   const [trendData, setTrendData] = useState();
+  const [resultData, setResultData] = useState();
+  const [defaultData, setDefaultData] = useState();
 
   useEffect(() => {
     (async () => {
       try {
         const SSdata = await SamsungArticles();
         const KWdData = await KeywordArticles("SK하이닉스");
+        const DFdata = await DefaultArticles(1);
+
         // const TRData = await TrendArticles();
+        setDefaultData(DFdata.data);
+        setResultData(DFdata);
 
         setSamsungData(SSdata);
         setKeywordData(KWdData);
@@ -111,27 +119,40 @@ const Samsung = () => {
     })();
   }, []);
 
-  const clickHandler = async (title) => {
+  // const clickHandler = async (title) => {
+  //   try {
+  //     const updateKeyword = await KeywordArticles(title);
+  //     setKeywordData(updateKeyword);
+  //     console.log(updateKeyword); // 최신 데이터 출력
+  //   } catch (error) {
+  //     console.error("Error fetching keyword data:", error);
+  //   }
+  // };
+
+  const fetchData = async () => {
     try {
-      const updateKeyword = await KeywordArticles(title);
-      setKeywordData(updateKeyword);
-      console.log(updateKeyword); // 최신 데이터 출력
+      let page = (resultData.page += 1);
+      if (resultData.page <= resultData.total_pages) {
+        const { data } = await DefaultArticles(page);
+
+        setDefaultData(defaultData.concat(data));
+        console.log(data);
+      }
+
+      console.log(page);
     } catch (error) {
-      console.error("Error fetching keyword data:", error);
+      console.log(error);
     }
   };
 
   return (
     <div>
-      {keywordData && keywordData.data ? (
-        <>
-          <ThemeWrap>
-            <Theme onClick={() => clickHandler("삼성전자")}>삼성전자</Theme>
-            <Theme onClick={() => clickHandler("SK하이닉스")}>
-              SK 하이닉스
-            </Theme>
-            <Theme onClick={() => clickHandler("오리온")}>애플</Theme>
-          </ThemeWrap>
+      {
+        <InfiniteScroll
+          dataLength={defaultData.length}
+          next={fetchData}
+          hasMore={true}
+        >
           <Container>
             <NoticeWrap>
               <span>
@@ -140,18 +161,18 @@ const Samsung = () => {
               </span>
               <h3>사용 설명서</h3>
             </NoticeWrap>
-            {keywordData.data.map((news) => (
+            {defaultData.map((news) => (
               <Box key={news.id}>
-                <Card
-                  variant="soft"
-                  sx={{
-                    bgcolor: "#f0f0f0",
-                    maxHeight: 260,
-                    width: 300,
-                    borderRadius: 4,
-                  }}
-                >
-                  <Link to={"/detail"}>
+                <Link to={`/detail`} state={{ news }}>
+                  <Card
+                    variant="soft"
+                    sx={{
+                      bgcolor: "#f0f0f0",
+                      maxHeight: 260,
+                      width: 300,
+                      borderRadius: 4,
+                    }}
+                  >
                     <CardMedia
                       sx={{ height: 140 }}
                       image={
@@ -172,15 +193,13 @@ const Samsung = () => {
                         {news.summary.slice(0, 46)}...
                       </Typography>
                     </CardContent>
-                  </Link>
-                </Card>
+                  </Card>
+                </Link>
               </Box>
             ))}
           </Container>
-        </>
-      ) : (
-        <Loading></Loading>
-      )}
+        </InfiniteScroll>
+      }
     </div>
   );
 };
