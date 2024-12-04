@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { DefaultArticles, KeywordArticles, KoreaArticles } from "../../api";
 import Loading from "../../components/Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { prettyFormat } from "@testing-library/react";
 
 const Container = styled.div`
   padding: 0 5%;
@@ -88,152 +89,141 @@ const Theme = styled.div`
 const Home = () => {
   // const [koreaData, setKoreaData] = useState();
   const [defaultData, setDefaultData] = useState();
-  const [keywordData, setKeywordData] = useState();
-  const [selectedTheme, setSelectedTheme] = useState("default");
-  const [resultData, setResultData] = useState();
+  // const [keywordData, setKeywordData] = useState();
+  // const [selectedTheme, setSelectedTheme] = useState("default");
+  // const [resultData, setResultData] = useState();
 
-  const themes = [
-    "삼성전자",
-    "SK하이닉스",
-    "카카오",
-    "한화",
-    "GS",
-    "KT",
-    "오리온",
-  ];
+  // const themes = [
+  //   "삼성전자",
+  //   "SK하이닉스",
+  //   "카카오",
+  //   "한화",
+  //   "GS",
+  //   "KT",
+  //   "오리온",
+  // ];
 
   useEffect(() => {
     (async () => {
       try {
-        // const KRdata = await KoreaArticles();
         const DFdata = await DefaultArticles(1);
-        const KWdData = await KeywordArticles("SK하이닉스");
-        // setKoreaData(KRdata);
-        setDefaultData(DFdata.data);
-        setKeywordData(KWdData);
-        setResultData(DFdata);
-        // console.log(DFdata);
+        // const KWdData = await KeywordArticles("SK하이닉스");
 
-        // console.log(KRdata.data[0].summary);
-        // console.log(koreaData);
-        // console.log(KRdata.data);
+        setDefaultData(DFdata);
+        // setKeywordData(KWdData);
+        // setResultData(DFdata);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      let page = (resultData.page += 1);
-      if (resultData.page <= resultData.total_pages) {
-        const { data } = await DefaultArticles(page);
-        // if(results && results)
-        setDefaultData(defaultData.concat(data));
+  // const fetchData = async () => {
+  //   try {
+  //     let page = (resultData.page += 1);
+  //     if (resultData.page <= resultData.total_pages) {
+  //       const { data } = await DefaultArticles(page);
 
-        console.log(data);
-      }
+  //       setDefaultData(defaultData.concat(data));
 
-      console.log(page);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //       console.log(data);
+  //     }
 
-  const clickHandler = async (title) => {
-    try {
-      const updateKeyword = await KeywordArticles(title);
-      setKeywordData(updateKeyword);
-      setSelectedTheme(title);
-    } catch (error) {
-      console.error("Error fetching keyword data:", error);
-    }
-  };
+  //     console.log(page);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const renderArticles = () => {
-    const articles =
-      selectedTheme === "default" ? defaultData?.data : keywordData?.data || [];
+  // const clickHandler = async (title) => {
+  //   try {
+  //     const updateKeyword = await KeywordArticles(title);
+  //     setKeywordData(updateKeyword);
+  //     setSelectedTheme(title);
+  //   } catch (error) {
+  //     console.error("Error fetching keyword data:", error);
+  //   }
+  // };
 
-    // console.log(articles);
+  // const renderArticles = () => {
+  //   const articles =
+  //     selectedTheme === "default" ? defaultData?.data : keywordData?.data || [];
 
-    return articles.map((news) => (
-      <Box key={news.id}>
-        <Link to={`/detail`} state={{ news }}>
-          <Card
-            variant="soft"
-            sx={{
-              bgcolor: "#f0f0f0",
-              maxHeight: 260,
-              width: 300,
-              borderRadius: 4,
-            }}
-          >
-            <CardMedia
-              sx={{ height: 140 }}
-              image={
-                news.image_url
-                  ? news.image_url
-                  : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
-              }
-              title="news"
-            />
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                fontFamily={"Noto Sans KR"}
-                fontSize={"1.3rem"}
-                fontWeight={700}
-              >
-                {news.title.slice(0, 14)}..
-              </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                {news.summary.slice(0, 46)}...
-              </Typography>
-            </CardContent>
-          </Card>
-        </Link>
-      </Box>
-    ));
-  };
+  //   // console.log(articles);
+
+  //   return articles.map((news) => (
+  //     <Box key={news.id}>
+  //       <Link to={`/detail`} state={{ news }}>
+  //         <Card
+  //           variant="soft"
+  //           sx={{
+  //             bgcolor: "#f0f0f0",
+  //             maxHeight: 260,
+  //             width: 300,
+  //             borderRadius: 4,
+  //           }}
+  //         >
+  //           <CardMedia
+  //             sx={{ height: 140 }}
+  //             image={
+  //               news.image_url
+  //                 ? news.image_url
+  //                 : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
+  //             }
+  //             title="news"
+  //           />
+  //           <CardContent>
+  //             <Typography
+  //               gutterBottom
+  //               variant="h5"
+  //               component="div"
+  //               fontFamily={"Noto Sans KR"}
+  //               fontSize={"1.3rem"}
+  //               fontWeight={700}
+  //             >
+  //               {news.title.slice(0, 14)}..
+  //             </Typography>
+  //             <Typography variant="body2" sx={{ color: "text.secondary" }}>
+  //               {news.summary.slice(0, 46)}...
+  //             </Typography>
+  //           </CardContent>
+  //         </Card>
+  //       </Link>
+  //     </Box>
+  //   ));
+  // };
 
   console.log(defaultData);
   return (
-    <div>
-      {defaultData ? (
-        <>
-          <ThemeWrap>
-            {themes.map((theme) => (
-              <Theme
-                key={theme}
-                isActive={selectedTheme === theme}
-                onClick={() => clickHandler(theme)}
-              >
-                {theme}
-              </Theme>
-            ))}
-            {/* <Theme onClick={() => clickHandler("삼성전자")}>삼성전자</Theme>
-            <Theme onClick={() => clickHandler("SK하이닉스")}>SK하이닉스</Theme>
-            <Theme onClick={() => clickHandler("카카오")}>카카오</Theme>
-            <Theme onClick={() => clickHandler("한화")}>한화</Theme>
-            <Theme onClick={() => clickHandler("GS")}>GS</Theme>
-            <Theme onClick={() => clickHandler("KT")}>KT</Theme>
-            <Theme onClick={() => clickHandler("오리온")}>오리온</Theme> */}
-          </ThemeWrap>
-          {/* <InfiniteScroll></InfiniteScroll> */}
-          {/* {renderArticles()} */}
-
-          {/* {console.log(defaultData)} */}
-          {/* <Container> */}
-          {/* <NoticeWrap>
-              <span>
-                <h1>경</h1>
-                <h2>록이</h2>
-              </span>
-              <h3>사용 설명서</h3>
-            </NoticeWrap> */}
-          {/* {defaultData.map((news) => (
+    <>
+      <ThemeWrap>
+        <Link to={`/samsung`}>
+          <Theme>삼성전자</Theme>
+        </Link>
+        <Link to={`/sk`}>
+          <Theme>SK하이닉스</Theme>
+        </Link>
+        <Link to={`/kakao`}>
+          <Theme>카카오</Theme>
+        </Link>
+        <Link to={`/hanwha`}>
+          <Theme>한화</Theme>
+        </Link>
+        <Link to={`/gs`}>
+          <Theme>GS</Theme>
+        </Link>
+      </ThemeWrap>
+      <Container>
+        <NoticeWrap>
+          <span>
+            <h1>경</h1>
+            <h2>록이</h2>
+          </span>
+          <h3>사용 설명서</h3>
+        </NoticeWrap>
+        {defaultData ? (
+          <>
+            {defaultData.data.map((news) => (
               <Box key={news.id}>
                 <Link to={`/detail`} state={{ news }}>
                   <Card
@@ -245,6 +235,7 @@ const Home = () => {
                       borderRadius: 4,
                     }}
                   >
+                    {/* {console.log(news)} */}
                     <CardMedia
                       sx={{ height: 140 }}
                       image={
@@ -268,66 +259,92 @@ const Home = () => {
                   </Card>
                 </Link>
               </Box>
-            ))} */}
-          {
-            <InfiniteScroll
-              dataLength={defaultData.length}
-              next={fetchData}
-              hasMore={true}
-            >
-              <Container>
-                <NoticeWrap>
-                  <span>
-                    <h1>경</h1>
-                    <h2>록이</h2>
-                  </span>
-                  <h3>사용 설명서</h3>
-                </NoticeWrap>
-                {defaultData.map((news) => (
-                  <Box key={news.id}>
-                    <Link to={`/detail`} state={{ news }}>
-                      <Card
-                        variant="soft"
-                        sx={{
-                          bgcolor: "#f0f0f0",
-                          maxHeight: 260,
-                          width: 300,
-                          borderRadius: 4,
-                        }}
-                      >
-                        <CardMedia
-                          sx={{ height: 140 }}
-                          image={
-                            news.image_url
-                              ? news.image_url
-                              : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
-                          }
-                          title="news"
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="div">
-                            {news.title.slice(0, 13)}..
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            sx={{ color: "text.secondary" }}
-                          >
-                            {news.summary.slice(0, 46)}...
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  </Box>
-                ))}
-              </Container>
-            </InfiniteScroll>
-          }
-          {/* </Container> */}
-        </>
-      ) : (
-        <Loading></Loading>
-      )}
-    </div>
+            ))}
+          </>
+        ) : (
+          <Loading></Loading>
+        )}
+      </Container>
+    </>
+
+    // <div>
+    //   {defaultData ? (
+    //     <>
+    //       <ThemeWrap>
+    //         <Link to={`/samsung`}>
+    //           <Theme>삼성전자</Theme>
+    //         </Link>
+    //         <Link to={`/sk`}>
+    //           <Theme>SK하이닉스</Theme>
+    //         </Link>
+    //         <Link to={`/kakao`}>
+    //           <Theme>카카오</Theme>
+    //         </Link>
+    //         <Link to={`/hanwha`}>
+    //           <Theme>한화</Theme>
+    //         </Link>
+    //         <Link to={`/gs`}>
+    //           <Theme>GS</Theme>
+    //         </Link>
+    //       </ThemeWrap>
+    //       {
+    //         <InfiniteScroll
+    //           dataLength={defaultData.length}
+    //           next={fetchData}
+    //           hasMore={true}
+    //         >
+    //           <Container>
+    //             <NoticeWrap>
+    //               <span>
+    //                 <h1>경</h1>
+    //                 <h2>록이</h2>
+    //               </span>
+    //               <h3>사용 설명서</h3>
+    //             </NoticeWrap>
+    //             {defaultData.map((news) => (
+    //               <Box key={news.id}>
+    //                 <Link to={`/detail`} state={{ news }}>
+    //                   <Card
+    //                     variant="soft"
+    //                     sx={{
+    //                       bgcolor: "#f0f0f0",
+    //                       maxHeight: 260,
+    //                       width: 300,
+    //                       borderRadius: 4,
+    //                     }}
+    //                   >
+    //                     <CardMedia
+    //                       sx={{ height: 140 }}
+    //                       image={
+    //                         news.image_url
+    //                           ? news.image_url
+    //                           : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
+    //                       }
+    //                       title="news"
+    //                     />
+    //                     <CardContent>
+    //                       <Typography gutterBottom variant="h5" component="div">
+    //                         {news.title.slice(0, 13)}..
+    //                       </Typography>
+    //                       <Typography
+    //                         variant="body2"
+    //                         sx={{ color: "text.secondary" }}
+    //                       >
+    //                         {news.summary.slice(0, 46)}...
+    //                       </Typography>
+    //                     </CardContent>
+    //                   </Card>
+    //                 </Link>
+    //               </Box>
+    //             ))}
+    //           </Container>
+    //         </InfiniteScroll>
+    //       }
+    //     </>
+    //   ) : (
+    //     <Loading></Loading>
+    //   )}
+    // </div>
   );
 };
 

@@ -21,10 +21,10 @@ export const SamsungArticles = () =>
     options
   ).then((res) => res.json());
 
-export const KeywordArticles = (keyword) =>
+export const KeywordArticles = (keyword, pageid) =>
   fetch(
     url(
-      `articles?company_name=${keyword}&page_size=99&date_from=2024-04-25&date_to=2024-04-25&`
+      `articles?company_name=${keyword}&page=${pageid}&page_size=20&date_from=2024-04-25&date_to=2024-04-25&`
     ),
     options
   ).then((res) => res.json());
@@ -32,7 +32,7 @@ export const KeywordArticles = (keyword) =>
 export const DefaultArticles = (pageid) =>
   fetch(
     url(
-      `articles?keyword=title:(삼성전자 AND 구글)&page=${pageid}&page_size=20&`
+      `articles?keyword=title:(삼성전자 AND 구글)&page=${pageid}&page_size=50&`
     ),
     options
   ).then((res) => res.json());
