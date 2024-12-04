@@ -24,8 +24,6 @@ const Container = styled.div`
 `;
 
 const NoticeWrap = styled.div`
-  width: 620px;
-  height: 540px;
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -39,6 +37,16 @@ const NoticeWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  a {
+    width: 620px;
+    height: 540px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   span {
     display: flex;
     align-items: end;
@@ -215,11 +223,13 @@ const Home = () => {
       </ThemeWrap>
       <Container>
         <NoticeWrap>
-          <span>
-            <h1>경</h1>
-            <h2>록이</h2>
-          </span>
-          <h3>사용 설명서</h3>
+          <Link to={`/notice`}>
+            <span>
+              <h1>경</h1>
+              <h2>록이</h2>
+            </span>
+            <h3>사용 설명서</h3>
+          </Link>
         </NoticeWrap>
         {defaultData ? (
           <>

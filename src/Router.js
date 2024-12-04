@@ -10,6 +10,7 @@ import Sk from "./pages/themes/Sk";
 import Kakao from "./pages/themes/Kakao";
 import Hanwha from "./pages/themes/Hanwha";
 import Gs from "./pages/themes/Gs";
+import Notice from "./pages/Notice";
 
 const Router = () => {
   return (
@@ -22,6 +23,7 @@ const Router = () => {
         <Route path="/kakao" element={<Kakao />}></Route>
         <Route path="/hanwha" element={<Hanwha />}></Route>
         <Route path="/gs" element={<Gs />}></Route>
+        <Route path="/notice" element={<Notice />}></Route>
 
         <Route path="/detail" element={<Detail />}></Route>
         <Route path="/words" element={<Words />}></Route>

@@ -32,7 +32,7 @@ export const KeywordArticles = (keyword, pageid) =>
 export const DefaultArticles = (pageid) =>
   fetch(
     url(
-      `articles?keyword=title:(삼성전자 AND 구글)&page=${pageid}&page_size=50&`
+      `articles?keyword=title:(삼성전자 AND 구글)&page=${pageid}&page_size=52&`
     ),
     options
   ).then((res) => res.json());

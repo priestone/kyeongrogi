@@ -11,7 +11,7 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Container = styled.div`
   padding: 0 5%;
@@ -42,6 +42,17 @@ const Box = styled.div`
   height: 150px;
   border-radius: 10px;
   background-color: #d9d9d9;
+  text-align: center;
+  padding: 20px 0 0 0;
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+  }
 `;
 
 const PlusBox = styled.div`
@@ -59,6 +70,20 @@ const PlusBox = styled.div`
 
 const Words = () => {
   const [open, setOpen] = useState(false);
+  const [wordList, setWordList] = useState([]);
+
+  useEffect(() => {
+    const storageWords = localStorage.getItem("wordList");
+    if (storageWords) {
+      setWordList(JSON.parse(storageWords));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (wordList.length > 0) {
+      localStorage.setItem("wordList", JSON.stringify(wordList));
+    }
+  }, [wordList]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -68,15 +93,37 @@ const Words = () => {
     setOpen(false);
   };
 
+  const handleAddWord = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const newWord = {
+      word: formData.get("word"),
+      meaning: formData.get("value"),
+    };
+    setWordList((prevList) => [...prevList, newWord]);
+    handleClose();
+  };
+
   return (
     <Container>
       <h1>단어장</h1>
       <BoxWrap>
-        <Box></Box>
-        <PlusBox>
-          <FontAwesomeIcon icon={faPlus} />
-        </PlusBox>
-        <Button variant="outlined" onClick={handleClickOpen}>
+        {console.log(wordList)}
+        {wordList.map((item, index) => (
+          <Box key={index}>
+            <h3>{item.word}</h3>
+            <p>{item.meaning}</p>
+          </Box>
+        ))}
+        <Button
+          variant="outlined"
+          onClick={handleClickOpen}
+          sx={{
+            border: `1px solid #d9d9d9`,
+            color: "black",
+            fontSize: `1.3rem`,
+          }}
+        >
           새 단어 추가
         </Button>
         <Dialog
@@ -84,20 +131,13 @@ const Words = () => {
           onClose={handleClose}
           PaperProps={{
             component: "form",
-            onSubmit: (event) => {
-              event.preventDefault();
-              const formData = new FormData(event.currentTarget);
-              const formJson = Object.fromEntries(formData.entries());
-              const email = formJson.email;
-              console.log(email);
-              handleClose();
-            },
+            onSubmit: handleAddWord,
           }}
         >
           <DialogTitle>새 단어 입력</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              새로운 단어를 입력하고 뜻을 적어 기록해보세요.
+              새로운 단어와 뜻을 적어 기록해보세요.
             </DialogContentText>
             <TextField
               autoFocus
@@ -105,7 +145,7 @@ const Words = () => {
               margin="dense"
               id="name"
               name="word"
-              label="단어명"
+              label="단어 명"
               type="text"
               fullWidth
               variant="standard"
@@ -114,10 +154,10 @@ const Words = () => {
               autoFocus
               required
               margin="dense"
-              id="name"
+              id="meaning"
               name="value"
               label="단어 뜻"
-              type="email"
+              type="text"
               fullWidth
               variant="standard"
             />
