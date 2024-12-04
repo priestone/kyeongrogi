@@ -14,7 +14,7 @@ const Container = styled.div`
   grid-template-rows: 260px 260px 260px 260px;
 
   gap: 20px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 `;
 
 const Box = styled.div`

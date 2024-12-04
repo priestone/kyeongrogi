@@ -24,5 +24,6 @@ img{
 a{
     text-decoration:none;
     color:black;
+    display:block;
 }
 `;

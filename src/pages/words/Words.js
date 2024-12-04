@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { designFont } from "../../GlobalStyled";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   Button,
   Dialog,
@@ -12,6 +10,8 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`
   padding: 0 5%;
@@ -34,7 +34,6 @@ const BoxWrap = styled.div`
   grid-template-rows: 150px 150px 150px 150px;
 
   gap: 20px;
-  /* margin: 0 auto; */
 `;
 
 const Box = styled.div`
@@ -44,6 +43,7 @@ const Box = styled.div`
   background-color: #d9d9d9;
   text-align: center;
   padding: 20px 0 0 0;
+  position: relative;
   h3 {
     font-size: 24px;
     font-weight: 700;
@@ -55,17 +55,13 @@ const Box = styled.div`
   }
 `;
 
-const PlusBox = styled.div`
-  width: 300px;
-  height: 150px;
-  border-radius: 10px;
-  background-color: #d9d9d9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  svg {
-    font-size: 40px;
-  }
+const Icon = styled.div`
+  color: red;
+  font-size: 20px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
 `;
 
 const Words = () => {
@@ -104,6 +100,12 @@ const Words = () => {
     handleClose();
   };
 
+  const handleDeleteWord = (indexToDelete) => {
+    const updatedList = wordList.filter((_, index) => index !== indexToDelete); // 특정 인덱스 제외
+    setWordList(updatedList);
+    localStorage.setItem("wordList", JSON.stringify(updatedList)); // 로컬스토리지 업데이트
+  };
+
   return (
     <Container>
       <h1>단어장</h1>
@@ -113,6 +115,9 @@ const Words = () => {
           <Box key={index}>
             <h3>{item.word}</h3>
             <p>{item.meaning}</p>
+            <Icon onClick={() => handleDeleteWord(index)}>
+              <FontAwesomeIcon icon={faTrashCan} />
+            </Icon>
           </Box>
         ))}
         <Button

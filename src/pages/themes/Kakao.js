@@ -107,6 +107,9 @@ const Kakao = () => {
             <Link to={`/kakao`}>
               <Theme>카카오</Theme>
             </Link>
+            <Link to={`/naver`}>
+              <Theme>네이버</Theme>
+            </Link>
             <Link to={`/hanwha`}>
               <Theme>한화</Theme>
             </Link>

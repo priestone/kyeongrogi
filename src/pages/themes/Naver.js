@@ -39,7 +39,7 @@ const ThemeWrap = styled.div`
   /* padding: 0 5%; */
   display: flex;
 
-  :nth-child(4) {
+  :first-child {
     div {
       background-color: cornflowerblue;
       color: white;
@@ -60,14 +60,14 @@ const Theme = styled.div`
   cursor: pointer;
 `;
 
-const Hanwha = () => {
+const Naver = () => {
   const [resultData, setResultData] = useState();
   const [defaultData, setDefaultData] = useState();
 
   useEffect(() => {
     (async () => {
       try {
-        const KWData = await KeywordArticles("한화", 1);
+        const KWData = await KeywordArticles("NAVER", 1);
 
         setDefaultData(KWData.data);
         setResultData(KWData);
@@ -81,7 +81,7 @@ const Hanwha = () => {
     try {
       let page = (resultData.page += 1);
       if (resultData.page <= resultData.total_pages) {
-        const { data } = await KeywordArticles("한화", page);
+        const { data } = await KeywordArticles("NAVER", page);
 
         setDefaultData(defaultData.concat(data));
         console.log(data);
@@ -171,4 +171,4 @@ const Hanwha = () => {
   );
 };
 
-export default Hanwha;
+export default Naver;

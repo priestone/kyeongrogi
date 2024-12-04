@@ -9,6 +9,7 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  margin-top: 30px;
 `;
 
 const NewsContainer = styled.div`

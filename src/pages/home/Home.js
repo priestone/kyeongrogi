@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { designFont } from "../../GlobalStyled";
 import { useEffect, useState } from "react";
-import { DefaultArticles, KeywordArticles, KoreaArticles } from "../../api";
+import {
+  DefaultArticles,
+  KeywordArticles,
+  KoreaArticles,
+  SampleArticles,
+} from "../../api";
 import Loading from "../../components/Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { prettyFormat } from "@testing-library/react";
@@ -12,15 +17,17 @@ import { prettyFormat } from "@testing-library/react";
 const Container = styled.div`
   padding: 0 5%;
 
-  /* width: 90%;
-  height: 100vh; */
-
   display: grid;
   grid-template-columns: 300px 300px 300px 300px 300px;
   grid-template-rows: 260px 260px 260px 260px;
-
   gap: 20px;
   margin: 0 auto;
+
+  @media screen and (max-width: 600px) {
+    width: 50%;
+    grid-template-columns: 300px 300px;
+    grid-template-rows: 200px 200px 260px 260px;
+  }
 `;
 
 const NoticeWrap = styled.div`
@@ -61,6 +68,37 @@ const NoticeWrap = styled.div`
   }
   h3 {
     font-size: 80px;
+  }
+
+  @media screen and (max-width: 600px) {
+    grid-column: span 1;
+    grid-row: span 1;
+
+    a {
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    span {
+      gap: 5px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      line-height: 1.2; /* 텍스트 높이를 조정 */
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      line-height: 1.5;
+      margin-top: 5px;
+    }
   }
 `;
 
@@ -114,7 +152,7 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        const DFdata = await DefaultArticles(1);
+        const DFdata = await SampleArticles();
         // const KWdData = await KeywordArticles("SK하이닉스");
 
         setDefaultData(DFdata);
@@ -125,81 +163,6 @@ const Home = () => {
       }
     })();
   }, []);
-
-  // const fetchData = async () => {
-  //   try {
-  //     let page = (resultData.page += 1);
-  //     if (resultData.page <= resultData.total_pages) {
-  //       const { data } = await DefaultArticles(page);
-
-  //       setDefaultData(defaultData.concat(data));
-
-  //       console.log(data);
-  //     }
-
-  //     console.log(page);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const clickHandler = async (title) => {
-  //   try {
-  //     const updateKeyword = await KeywordArticles(title);
-  //     setKeywordData(updateKeyword);
-  //     setSelectedTheme(title);
-  //   } catch (error) {
-  //     console.error("Error fetching keyword data:", error);
-  //   }
-  // };
-
-  // const renderArticles = () => {
-  //   const articles =
-  //     selectedTheme === "default" ? defaultData?.data : keywordData?.data || [];
-
-  //   // console.log(articles);
-
-  //   return articles.map((news) => (
-  //     <Box key={news.id}>
-  //       <Link to={`/detail`} state={{ news }}>
-  //         <Card
-  //           variant="soft"
-  //           sx={{
-  //             bgcolor: "#f0f0f0",
-  //             maxHeight: 260,
-  //             width: 300,
-  //             borderRadius: 4,
-  //           }}
-  //         >
-  //           <CardMedia
-  //             sx={{ height: 140 }}
-  //             image={
-  //               news.image_url
-  //                 ? news.image_url
-  //                 : "https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1-760x460.png"
-  //             }
-  //             title="news"
-  //           />
-  //           <CardContent>
-  //             <Typography
-  //               gutterBottom
-  //               variant="h5"
-  //               component="div"
-  //               fontFamily={"Noto Sans KR"}
-  //               fontSize={"1.3rem"}
-  //               fontWeight={700}
-  //             >
-  //               {news.title.slice(0, 14)}..
-  //             </Typography>
-  //             <Typography variant="body2" sx={{ color: "text.secondary" }}>
-  //               {news.summary.slice(0, 46)}...
-  //             </Typography>
-  //           </CardContent>
-  //         </Card>
-  //       </Link>
-  //     </Box>
-  //   ));
-  // };
 
   console.log(defaultData);
   return (
@@ -213,6 +176,9 @@ const Home = () => {
         </Link>
         <Link to={`/kakao`}>
           <Theme>카카오</Theme>
+        </Link>
+        <Link to={`/naver`}>
+          <Theme>네이버</Theme>
         </Link>
         <Link to={`/hanwha`}>
           <Theme>한화</Theme>
@@ -257,7 +223,7 @@ const Home = () => {
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        {news.title.slice(0, 13)}..
+                        {news.title.slice(0, 12)}..
                       </Typography>
                       <Typography
                         variant="body2"
