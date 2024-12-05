@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/kyeongrogi/static/css/main.624e9ed2.css",
+    "main.js": "/kyeongrogi/static/js/main.9943a41a.js",
+    "static/media/RiaSans-ExtraBold.ttf": "/kyeongrogi/static/media/RiaSans-ExtraBold.a9bddbdf9bc63ebcbbc8.ttf",
+    "static/media/notice.png": "/kyeongrogi/static/media/notice.a4ffc26deff27551bd41.png",
+    "index.html": "/kyeongrogi/index.html",
+    "main.624e9ed2.css.map": "/kyeongrogi/static/css/main.624e9ed2.css.map",
+    "main.9943a41a.js.map": "/kyeongrogi/static/js/main.9943a41a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.624e9ed2.css",
+    "static/js/main.9943a41a.js"
+  ]
+}

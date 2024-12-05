@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.624e9ed2.css","mappings":"AAAA,WACE,6BAAgC,CAGhC,iBAAkB,CADlB,eAAmB,CADnB,4FAGF","sources":["index.css"],"sourcesContent":["@font-face {\r\n  font-family: \"RiaSans-ExtraBold\";\r\n  src: url(\"/src/fonts/RiaSans-ExtraBold.ttf\") format(\"woff2\");\r\n  font-weight: normal;\r\n  font-style: normal;\r\n}\r\n"],"names":[],"sourceRoot":""}
