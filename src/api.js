@@ -36,7 +36,7 @@ const getLastWeekDate = () => {
 export const KeywordArticles = (keyword, pageid) =>
   fetch(
     url(
-      `articles?company_name=${keyword}&page=${pageid}&page_size=20&date_from=${getCurrentDate}&date_to=${getCurrentDate}&`
+      `articles?company_name=${keyword}&page=${pageid}&page_size=20&date_from=${getCurrentDate()}&date_to=${getCurrentDate()}&`
     ),
     options
   ).then((res) => res.json());
@@ -52,7 +52,7 @@ export const DefaultArticles = (pageid) =>
 export const SampleArticles = () =>
   fetch(
     url(
-      `articles/economy?date_from=${getLastWeekDate}&date_to=${getCurrentDate}&page_size=51&`
+      `articles/economy?date_from=${getLastWeekDate()}&date_to=${getCurrentDate()}&page_size=51&`
     ),
     options
   ).then((res) => res.json());
