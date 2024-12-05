@@ -12,10 +12,8 @@ const Container = styled.div`
 
 const NewsContainer = styled.div`
   width: 54%;
-  /* height: 900px; */
   border-radius: 10px;
   img {
-    /* height: 300px; */
     border-radius: 10px;
   }
   h1 {
@@ -25,17 +23,21 @@ const NewsContainer = styled.div`
     margin-bottom: 10px;
     line-height: 40px;
   }
+
+  @media screen and (max-width: 800px) {
+    h1 {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
 `;
 
 const TextWrap = styled.div`
   width: 44%;
-  height: 700px;
   border-radius: 10px;
   background-color: #f0f0f0;
   padding: 25px 35px;
-  /* position: sticky;
-  top: 8%;
-  right: 10px; */
+
   h1 {
     font-size: 30px;
     font-weight: 900;
@@ -48,6 +50,20 @@ const TextWrap = styled.div`
     font-weight: 900;
     margin-bottom: 20px;
     margin-top: 50px;
+  }
+
+  @media screen and (max-width: 800px) {
+    padding: 10px;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
   }
 `;
 
@@ -79,12 +95,12 @@ const Text2 = styled.div`
 const ListDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { news } = location.state || {}; // 전달받은 데이터 접근
+  const { news } = location.state || {};
 
   console.log(news);
 
   const handleBack = () => {
-    navigate(-1); // 이전 페이지로 이동
+    navigate(-1);
   };
 
   return (
@@ -112,7 +128,7 @@ const ListDetail = () => {
         <Stack
           sx={{ display: "flex", justifyContent: "center" }}
           direction="row"
-          spacing={10}
+          spacing={1}
         >
           <Button
             variant="contained"

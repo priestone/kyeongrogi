@@ -33,14 +33,6 @@ const getLastWeekDate = () => {
   return `${year}-${month}-${day}`;
 };
 
-// export const SamsungArticles = () =>
-//   fetch(
-//     url(
-//       `articles?company_name=삼성전자&page_size=99&date_from=2024-04-25&date_to=2024-04-25&`
-//     ),
-//     options
-//   ).then((res) => res.json());
-
 export const KeywordArticles = (keyword, pageid) =>
   fetch(
     url(
@@ -64,25 +56,3 @@ export const SampleArticles = () =>
     ),
     options
   ).then((res) => res.json());
-
-// export const GlobalArticles = (keyword) =>
-//   fetch(
-//     url(
-//       `global-articles?symbols=NYSE:${keyword}&date_from=2024-04-25&date_to=2024-04-25&`
-//     ),
-//     options
-//   ).then((res) => res.json());
-
-// export const TrendArticles = () =>
-//   fetch(
-//     url(`articles/topics/trending?date_from=2024-04-25&date_to=2024-04-28&`),
-//     options
-//   ).then((res) => res.json());
-
-// global-articles/topics/trending?company_name=Apple&order=published_at&
-
-// keyword=title:(삼성전자 AND 구글)
-
-// company_name = 삼성전자;
-
-// AAPL,MSFT

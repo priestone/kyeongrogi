@@ -10,14 +10,16 @@ const Container = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-top: 30px;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 
 const NewsContainer = styled.div`
   width: 54%;
-  /* height: 900px; */
   border-radius: 10px;
   img {
-    /* height: 300px; */
     border-radius: 10px;
   }
   h1 {
@@ -32,14 +34,17 @@ const NewsContainer = styled.div`
     letter-spacing: 2px;
     line-height: 20px;
   }
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 const TextWrap = styled.div`
   width: 44%;
-  height: 700px;
+  height: 100%;
   border-radius: 10px;
-  background-color: #f0f0f0;
-  padding: 25px 35px;
+  padding: 10px;
   position: sticky;
   top: 8%;
   right: 10px;
@@ -56,25 +61,43 @@ const TextWrap = styled.div`
     margin-bottom: 20px;
     margin-top: 50px;
   }
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    h2 {
+      margin-top: 30px;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+  }
 `;
 
-const MemoWrap = styled.input`
+const MemoWrap = styled.textarea`
   all: unset;
   width: 100%;
   height: 200px;
   border-radius: 10px;
-  background-color: #dbdbdb;
+  background-color: #f0f0f0;
   padding: 10px;
+  box-sizing: border-box;
 `;
 
-const MemoWrap2 = styled.input`
+const MemoWrap2 = styled.textarea`
   all: unset;
   width: 100%;
   height: 100px;
   border-radius: 10px;
-  background-color: #dbdbdb;
+  background-color: #f0f0f0;
   padding: 10px;
   margin-bottom: 50px;
+  box-sizing: border-box;
 `;
 
 const Detail = () => {
@@ -107,7 +130,7 @@ const Detail = () => {
   };
 
   const handleBack = () => {
-    navigate(-1); // 이전 페이지로 이동
+    navigate(-1);
   };
   console.log(news);
 
@@ -130,16 +153,18 @@ const Detail = () => {
         <MemoWrap
           value={summary}
           onChange={(e) => setSummary(e.target.value)}
+          placeholder="기사 내용을 간단하게 요약해보세요"
         ></MemoWrap>
         <h2>코멘트</h2>
         <MemoWrap2
           value={comment}
           onChange={(e) => setComment(e.target.value)}
+          placeholder="자신의 감상 또는 메모를 적어주세요"
         ></MemoWrap2>
         <Stack
           sx={{ display: "flex", justifyContent: "center" }}
           direction="row"
-          spacing={10}
+          spacing={1}
         >
           <Button
             variant="contained"

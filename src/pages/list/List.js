@@ -4,21 +4,37 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 10px 5%;
-
+  padding: 10px 4%;
   width: 90%;
   height: 100vh;
-
   display: grid;
   grid-template-columns: 300px 300px 300px 300px 300px;
   grid-template-rows: 260px 260px 260px 260px;
-
   gap: 20px;
-  /* margin: 0 auto; */
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    grid-template-columns: 48% 48%;
+    grid-template-rows: 320px 320px;
+    margin: unset;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 260px 260px 260px 260px;
+  }
 `;
 
 const Box = styled.div`
   width: 300px;
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    a {
+      height: 100%;
+    }
+  }
 `;
 
 const List = () => {
@@ -40,11 +56,11 @@ const List = () => {
                 sx={{
                   bgcolor: "#f0f0f0",
                   maxHeight: 260,
-                  width: 300,
+                  width: "100%",
+                  height: "100%",
                   borderRadius: 4,
                 }}
               >
-                {/* {console.log(news)} */}
                 <CardMedia
                   sx={{ height: 140 }}
                   image={

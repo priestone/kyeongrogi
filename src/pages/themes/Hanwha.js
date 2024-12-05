@@ -1,48 +1,64 @@
 import { useEffect, useState } from "react";
-import {
-  DefaultArticles,
-  GlobalArticles,
-  KeywordArticles,
-  SamsungArticles,
-  TrendArticles,
-} from "../../api";
+import { KeywordArticles } from "../../api";
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { designFont } from "../../GlobalStyled";
+
 import Loading from "../../components/Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const Container = styled.div`
-  padding: 0 5%;
-
-  /* width: 90%;
-  height: 100vh; */
-
+  padding: 0 4%;
   display: grid;
   grid-template-columns: 300px 300px 300px 300px 300px;
   grid-template-rows: 260px 260px 260px 260px;
 
   gap: 20px;
   margin: 0 auto;
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    grid-template-columns: 48% 48%;
+    grid-template-rows: 320px 320px;
+    margin: unset;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 260px 260px 260px 260px;
+  }
 `;
 
 const Box = styled.div`
   width: 300px;
+
+  a {
+    height: 100%;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 const ThemeWrap = styled.div`
   width: 90%;
   height: 50px;
-  /* background-color: yellow; */
   margin: 10px auto;
-  /* padding: 0 5%; */
   display: flex;
 
-  :nth-child(4) {
+  :nth-child(5) {
     div {
       background-color: cornflowerblue;
       color: white;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    justify-content: space-between;
+    a {
+      width: 16%;
     }
   }
 `;
@@ -58,6 +74,18 @@ const Theme = styled.div`
   font-weight: 700;
   margin-right: 10px;
   cursor: pointer;
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    font-size: 10px;
+    border-radius: 20px;
+    margin-right: 0px;
+  }
+
+  @media screen and (max-width: 500px) {
+    font-size: 10px;
+    border-radius: 20px;
+  }
 `;
 
 const Hanwha = () => {
@@ -131,8 +159,8 @@ const Hanwha = () => {
                         variant="soft"
                         sx={{
                           bgcolor: "#f0f0f0",
-                          maxHeight: 260,
-                          width: 300,
+                          width: "100%",
+                          height: "100%",
                           borderRadius: 4,
                         }}
                       >

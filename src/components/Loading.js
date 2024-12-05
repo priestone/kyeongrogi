@@ -1,12 +1,10 @@
-// const LoadingComponent = CircularIndeterminate()
-
 import { Box, CircularProgress } from "@mui/material";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 100px;
-  height: 100vh;
-  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 `;
 
 const Loading = () => {

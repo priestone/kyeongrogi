@@ -23,6 +23,15 @@ const Container = styled.div`
     margin-top: 20px;
     margin-bottom: 40px;
   }
+
+  @media screen and (max-width: 800px) {
+    padding: 0 4%;
+
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+  }
 `;
 
 const BoxWrap = styled.div`
@@ -34,13 +43,23 @@ const BoxWrap = styled.div`
   grid-template-rows: 150px 150px 150px 150px;
 
   gap: 20px;
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+    grid-template-columns: 50% 50%;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    grid-template-columns: 100%;
+  }
 `;
 
 const Box = styled.div`
   width: 300px;
   height: 150px;
   border-radius: 10px;
-  background-color: #d9d9d9;
+  background-color: #f0f0f0;
   text-align: center;
   padding: 20px 0 0 0;
   position: relative;
@@ -53,10 +72,23 @@ const Box = styled.div`
   p {
     font-size: 18px;
   }
+
+  @media screen and (max-width: 800px) {
+    width: 98%;
+    padding: 30px 0 0 0;
+
+    h3 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
 `;
 
 const Icon = styled.div`
-  color: red;
+  color: black;
   font-size: 20px;
   position: absolute;
   bottom: 10px;
@@ -127,6 +159,7 @@ const Words = () => {
             border: `1px solid #d9d9d9`,
             color: "black",
             fontSize: `1.3rem`,
+            width: "98%",
           }}
         >
           새 단어 추가
