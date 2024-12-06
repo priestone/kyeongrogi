@@ -13,6 +13,15 @@ const options = {
   },
 };
 
+const options1 = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    "X-Naver-Client-Id": `gFtad_k95qlwI3QbSo7v`,
+    "X-Naver-Client-Secret": `UoHpSuZaDp`,
+  },
+};
+
 const getCurrentDate = () => {
   const today = new Date();
   const year = today.getFullYear();
@@ -56,3 +65,9 @@ export const SampleArticles = () =>
     ),
     options
   ).then((res) => res.json());
+
+// export const NaverArticles = (keyword) =>
+//   fetch(
+//     `https://openapi.naver.com/v1/search/news.json?query=${keyword}`,
+//     options1
+//   ).then((res) => res.json());
