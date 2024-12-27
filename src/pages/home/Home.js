@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { designFont } from "../../GlobalStyled";
 import { useEffect, useState } from "react";
-import { SampleArticles } from "../../api";
+import { NaverArticles, SampleArticles } from "../../api";
 import Loading from "../../components/Loading";
 
 const Container = styled.div`
@@ -171,7 +171,7 @@ const Home = () => {
     })();
   }, []);
 
-  console.log(defaultData);
+  // console.log(defaultData);
   return (
     <>
       <ThemeWrap>
