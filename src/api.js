@@ -45,7 +45,7 @@ const getLastWeekDate = () => {
 export const KeywordArticles = (keyword, pageid) =>
   fetch(
     url(
-      `articles?company_name=${keyword}&page=${pageid}&page_size=20&date_from=${getCurrentDate()}&date_to=${getCurrentDate()}&`
+      `articles?company_name=${keyword}&page=${pageid}&page_size=20&date_from=${getLastWeekDate()}&date_to=${getCurrentDate()}&`
     ),
     options
   ).then((res) => res.json());

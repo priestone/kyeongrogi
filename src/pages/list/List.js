@@ -94,7 +94,7 @@ const List = () => {
           variant="h6"
           sx={{ textAlign: "center", marginTop: "20px" }}
         >
-          저장된 데이터가 없습니다.
+          저장된 경록이가 없습니다.
         </Typography>
       )}
     </Container>
