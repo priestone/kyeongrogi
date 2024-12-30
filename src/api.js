@@ -13,14 +13,14 @@ const options = {
   },
 };
 
-const options1 = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    "X-Naver-Client-Id": `gFtad_k95qlwI3QbSo7v`,
-    "X-Naver-Client-Secret": `UoHpSuZaDp`,
-  },
-};
+// const options1 = {
+//   method: "GET",
+//   headers: {
+//     "Content-Type": "application/json",
+//     "X-Naver-Client-Id": `gFtad_k95qlwI3QbSo7v`,
+//     "X-Naver-Client-Secret": `UoHpSuZaDp`,
+//   },
+// };
 
 const getCurrentDate = () => {
   const today = new Date();

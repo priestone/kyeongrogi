@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import Router from "./Router";
 import "./index.css";
 import { GlobalStyled } from "./GlobalStyled";
-import App from "./App";
+// import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
