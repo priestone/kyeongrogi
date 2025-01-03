@@ -29,22 +29,35 @@
 
 뉴스 둘러보기
 
+![home](https://github.com/user-attachments/assets/25540ff3-f0dc-46f8-a7e5-fb6c86612b19)
+
 - 시작 페이지(홈 화면) 에서는 기본으로 제공되는 뉴스의 소식을 볼 수 있음
 - 좌측 상단 6가지 테마의 메뉴버튼을 통해 카테고리별 뉴스를 확인 가능
 - 우측 상단에 "단어장"과 "내 경록" 으로 사용자 개인의 기록을 확인 가능
 
+경신스 작성
+
+![detail](https://github.com/user-attachments/assets/be433dc8-d52d-4fc3-bb65-938f6d04d260)
+
+- 원하는 뉴스를 클릭 후 스크랩을 할 수 있는 디테일 페이지로 이동
+- 스크랩 후 "저장하기" 버튼을 누르면 해당 스크랩은 "내 경록" 페이지로 이동됨
+
 경록이 사용 설명서
+
+![notice](https://github.com/user-attachments/assets/b3cc7f04-ba4f-4fb9-b683-d31b2d06519d)
 
 - '경신스'에 대해 잘 모르는 사용자를 위한 설명서
 
 
-![scroll](https://github.com/user-attachments/assets/da11664c-3df3-42b2-a4b9-0eb1fc1d14c1)
-
 단어장
+
+![scroll](https://github.com/user-attachments/assets/da11664c-3df3-42b2-a4b9-0eb1fc1d14c1)
 
 - 뉴스를 기사 중 사용자가 모르는 단어를 직접 저장하여 학습에 도움을 줌
 
 내 경록
+
+![mynews](https://github.com/user-attachments/assets/bf4e72bd-932b-4750-9bab-2e981d236f79)
 
 - 사용자가 기록했던 경신스를 한눈에 볼 수 있음
 
