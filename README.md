@@ -38,7 +38,7 @@
 - '경신스'에 대해 잘 모르는 사용자를 위한 설명서
 
 
-<img src="https://github.com/user-attachments/assets/98f0da42-51ba-4229-b940-0429d709941f">
+![scroll](https://github.com/user-attachments/assets/da11664c-3df3-42b2-a4b9-0eb1fc1d14c1)
 
 단어장
 
