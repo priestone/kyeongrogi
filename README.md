@@ -38,7 +38,8 @@
 - '경신스'에 대해 잘 모르는 사용자를 위한 설명서
 
 
-https://github.com/user-attachments/assets/98f0da42-51ba-4229-b940-0429d709941f
+<img src="https://github.com/user-attachments/assets/98f0da42-51ba-4229-b940-0429d709941f">
+
 단어장
 
 - 뉴스를 기사 중 사용자가 모르는 단어를 직접 저장하여 학습에 도움을 줌
